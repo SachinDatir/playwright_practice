@@ -35,7 +35,7 @@ stage('Check Network') {
 }
     stage('Run Playwright tests') {
       steps {
-        bat 'npm test'
+        bat 'npx playwright test tests/example.spec.ts'
       }
     }
   }
