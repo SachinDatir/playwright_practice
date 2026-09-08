@@ -27,7 +27,12 @@ pipeline {
         bat 'npx playwright install chromium'
       }
     }
-
+stage('Check Network') {
+    steps {
+        bat 'curl -I https://playwright.dev/'
+        bat 'node -e "require(\"https\").get(\"https://playwright.dev/\", r => console.log(r.statusCode)).on(\"error\", e => console.error(e.message))"'
+    }
+}
     stage('Run Playwright tests') {
       steps {
         bat 'npm test'
