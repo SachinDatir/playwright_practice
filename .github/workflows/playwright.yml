@@ -28,10 +28,15 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps 
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          SAUCE_DEMO_URL: ${{ vars.SAUCE_DEMO_URL }}
+          HEROKUAPP_URL: ${{ vars.HEROKUAPP_URL }}
+          SAUCE_DEMO_USERNAME: ${{ secrets.SAUCE_DEMO_USERNAME }}
+          SAUCE_DEMO_PASSWORD: ${{ secrets.SAUCE_DEMO_PASSWORD }}
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
