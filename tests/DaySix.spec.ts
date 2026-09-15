@@ -1,6 +1,6 @@
 import { test, expect } from "../support/fixtures/testFixtures";
-const username: string = process.env.SAUCE_DEMO_USERNAME;
-const password: string = process.env.SAUCE_DEMO_PASSWORD;
+const username: string = "standard_user";
+const password: string = "secret_sauce";
 
 test.describe("Verify the add to cart", () => {
   test("add to cart", async ({ page, sauceDemo }) => {

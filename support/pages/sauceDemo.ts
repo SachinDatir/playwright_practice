@@ -1,4 +1,4 @@
-import { type Page, type Locator } from "@playwright/test";
+import { type Page, type Locator, expect } from "@playwright/test";
 import { Headers } from "../components/sauceDemo/sauceDemoComponent";
 import { ProductCard } from "../components/sauceDemo/ProductCard";
 export class SauceDemo {
@@ -33,6 +33,7 @@ export class SauceDemo {
   }
 
   async loginSaucDemo(username: string, password: string) {
+    await expect (this.username).toBeVisible()
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();

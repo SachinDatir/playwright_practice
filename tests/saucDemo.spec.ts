@@ -2,8 +2,8 @@ import { test, expect } from "../support/fixtures/testFixtures";
 import { SauceDemo } from "../support/pages/sauceDemo";
 
 const url: string = process.env.SAUCE_DEMO_URL;
-const username: string = process.env.SAUCE_DEMO_USERNAME;
-const password: string = process.env.SAUCE_DEMO_PASSWORD;
+const username: string = "standard_user";
+const password: string = "secret_sauce";
 test.describe("sauce labs test", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(url);
