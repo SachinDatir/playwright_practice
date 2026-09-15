@@ -27,11 +27,12 @@ pipeline {
         bat 'npx playwright install chromium'
       }
     }
-stage('Check Network') {
-    steps {
-        bat 'curl -I https://playwright.dev/'
-        bat 'node -e "require(\"https\").get(\"https://playwright.dev/\", r => console.log(r.statusCode)).on(\"error\", e => console.error(e.message))"'
-    }
+stage('Check external connectivity') {
+  steps {
+    bat '''
+      powershell -NoProfile -Command "Invoke-WebRequest -Uri 'https://www.saucedemo.com/' -UseBasicParsing -TimeoutSec 30 | Select-Object -ExpandProperty StatusCode"
+    '''
+  }
 }
     stage('Run Playwright tests') {
       steps {

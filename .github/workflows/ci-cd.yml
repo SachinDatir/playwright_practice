@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+# 1. Define what triggers the pipeline
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 2. Define the jobs to run
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Pulls your source code into the GitHub runner
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Example environment setup (Node.js setup; change according to your tech stack)
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Run unit tests
+    - name: Run tests
+      run: npm test

@@ -1,49 +1,36 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../support/fixtures/testFixtures";
+import { SauceDemo } from "../support/pages/sauceDemo";
 
+const url: string = process.env.SAUCE_DEMO_URL;
+const username: string = process.env.SAUCE_DEMO_USERNAME;
+const password: string = process.env.SAUCE_DEMO_PASSWORD;
 test.describe("sauce labs test", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("https://www.saucedemo.com/");
+    await page.goto(url);
     await page.waitForLoadState("domcontentloaded");
   });
   test("should open the Sauce Labs website and check the title", async ({
     page,
+    sauceDemo,
   }) => {
     await expect(page).toHaveTitle("Swag Labs");
-    await page.getByText("Swag Labs").isVisible();
+    await expect(sauceDemo.header.swaglabsText).toBeVisible();
   });
 
-  test("should log in to the Sauce Labs website", async ({
-    page,
-    playwright,
-  }) => {
-    playwright.selectors.setTestIdAttribute("data-test");
-    await page.getByPlaceholder("Username").fill("standard_user");
-    await page.getByTestId("password").fill("secret_sauce");
-    await page.getByTestId("login-button").click();
-    await page.getByRole("heading", { name: "Products" }).isVisible();
-    const primaryHeader = await page
-      .getByTestId("header-container")
-      .textContent();
-    expect(primaryHeader).toContain("Swag Labs");
+  test("should log in to the Sauce Labs website", async ({ sauceDemo }) => {
+    await sauceDemo.loginSaucDemo(username, password);
+    await expect(sauceDemo.products).toBeVisible();
+    const primaryHeader = sauceDemo.primaryHeader;
+    await expect(primaryHeader).toContainText("Swag Labs");
   });
 
-  test("should able to use add to cart model", async ({
-    page,
-    playwright,
-  }) => {
-    playwright.selectors.setTestIdAttribute("data-test");
-    await page.getByPlaceholder("Username").fill("standard_user");
-    await page.getByTestId("password").fill("secret_sauce");
-    await page.getByTestId("login-button").click();
-    await page.getByRole("heading", { name: "Products" }).isVisible();
-    const product = page
-      .getByTestId("inventory-item")
-      .filter({ hasText: "Sauce Labs Backpack" });
-    await product.getByRole("button", { name: "Add to cart" }).click();
-    await page.getByTestId("shopping-cart-link").click();
-    const addedProduct = await page
-      .getByTestId("inventory-item-name")
-      .textContent();
-    await expect(addedProduct).toContain("Sauce Labs Backpack");
+  test("should able to use add to cart model", async ({ sauceDemo }) => {
+    await sauceDemo.loginSaucDemo(username, password);
+    await expect(sauceDemo.products).toBeVisible();
+
+    await sauceDemo.addProductToCart("Sauce Labs Backpack");
+    await sauceDemo.openCart();
+    const addedProduct = sauceDemo.inventory_item_names;
+    await expect(addedProduct).toContainText("Sauce Labs Backpack");
   });
 });
