@@ -43,6 +43,7 @@ test.describe("Day 3 — Assertions", () => {
     );
     await expect(testingArena.toggleButton).toBeVisible();
     await testingArena.toggleButton.click();
+    await expect(testingArena.toggleMsg).toBeVisible()
     await expect(testingArena.toggleMsg).toContainText(
       "You have displayed the hidden text!",
     );
