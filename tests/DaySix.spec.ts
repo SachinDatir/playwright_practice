@@ -8,6 +8,7 @@ test.describe("Verify the add to cart", () => {
       waitUntil: "domcontentloaded",
     });
     await sauceDemo.loginSaucDemo(username, password);
+    await page.waitForTimeout(2000)
     await sauceDemo.addProductToCart("Sauce Labs Bike Light");
     await expect(sauceDemo.shopping_cart).toBeVisible();
     await sauceDemo.openCart();

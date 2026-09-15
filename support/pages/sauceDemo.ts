@@ -26,7 +26,7 @@ export class SauceDemo {
     this.addToCart_sauceLabs = page.locator("#add-to-cart-sauce-labs-backpack");
     this.shopping_cart = page.getByTestId("shopping-cart-link");
     this.removeItemButton = page.getByText("Remove");
-    this.products = page.getByTestId("title");
+    this.products = page.locator(".title");
     this.primaryHeader = page.getByTestId("header-container");
     this.inventory_item = page.getByTestId("inventory-item");
     this.inventory_item_names = page.getByTestId("inventory-item-name");
