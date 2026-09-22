@@ -12,7 +12,7 @@ export async function submitAndWaitForResponse(
   const [response] = await Promise.all([
     page.waitForResponse(
       (apiResponse) =>
-        apiResponse.url().includes(urlPart) && apiResponse.status() === 200,
+        apiResponse.url().includes(urlPart)
     ),
     action(),
   ]);

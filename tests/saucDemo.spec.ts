@@ -26,11 +26,19 @@ test.describe("sauce labs test", () => {
 
   test("should able to use add to cart model", async ({ sauceDemo }) => {
     await sauceDemo.loginSaucDemo(username, password);
-    await expect(sauceDemo.products).toBeVisible({timeout:5000});
+    await expect(sauceDemo.products).toBeVisible({ timeout: 5000 });
 
     await sauceDemo.addProductToCart("Sauce Labs Backpack");
     await sauceDemo.openCart();
     const addedProduct = sauceDemo.item_4;
     await expect(addedProduct).toContainText("Sauce Labs Backpack");
+  });
+
+  test("should add product", async ({ loggedInSauceDemo }) => {
+    await loggedInSauceDemo.addProductToCart("Sauce Labs Backpack");
+
+    await loggedInSauceDemo.openCart();
+
+    await expect(loggedInSauceDemo.item_4).toContainText("Sauce Labs Backpack");
   });
 });
