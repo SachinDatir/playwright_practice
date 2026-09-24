@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-import { SauceDemo } from "../pages/sauceDemo";
+import { SauceDemo } from "../pages/SauceDemoPage";
 type Fixtures = {
   sauceDemo: SauceDemo;
   loggedInSauceDemo: SauceDemo;

@@ -23,37 +23,37 @@ export class SelectionDropdown {
     this.inputModels = this.page.locator("#inputModel");
   }
 
-  async validateProductLineDropdown(expectedProductLine: string[]) {
-    const dropdown = this.inputProductLine.locator("option");
+  async validateProductLineDropdown(expectedProductLine: readonly string[]) {
+    const dropdown = this.inputProductLine.locator("option") 
     await expect(dropdown).toHaveText(expectedProductLine);
   }
 
-  async validateDischargeTypes(expectedDischarge: string[]) {
-    const dropdown = this.inputDischargeType.locator("option");
+  async validateDischargeTypes(expectedDischarge: readonly string[]) {
+    const dropdown = this.inputDischargeType.locator("option")
     await expect(dropdown).toHaveText(expectedDischarge);
   }
 
-  async validateCoolingSystem(expectedCoolingSystem: string[]) {
+  async validateCoolingSystem(expectedCoolingSystem: readonly string[]) {
     const dropdown = this.inputCoolingSystem.locator("option");
     await expect(dropdown).toHaveText(expectedCoolingSystem);
   }
 
-  async validateCompressorType(expectedCompressorType: string[]) {
+  async validateCompressorType(expectedCompressorType: readonly string[]) {
     const dropdown = this.inputCompType.locator("option");
     await expect(dropdown).toHaveText(expectedCompressorType);
   }
 
-  async validateCircuits(expectedCircuits: string[]) {
+  async validateCircuits(expectedCircuits: readonly string[]) {
     const dropdown = this.inputCircuit.locator("option");
     await expect(dropdown).toHaveText(expectedCircuits);
   }
 
-  async validateCasingWidth(expectedCasing: string[]) {
+  async validateCasingWidth(expectedCasing: readonly string[]) {
     const dropdown = this.inputCasing.locator("option");
     await expect(dropdown).toHaveText(expectedCasing);
   }
 
-  async validateRefrigerent(expectedRefrigerent: string[]) {
+  async validateRefrigerent(expectedRefrigerent: readonly string[]) {
     const dropdown = this.refrigerent.locator("option");
 
     const actualTexts = await dropdown.allInnerTexts();
@@ -61,12 +61,12 @@ export class SelectionDropdown {
 
     expect(trimmedTexts).toEqual(expectedRefrigerent);
   }
-  async validatePowerSupply(expectedRefrigerent: string[]) {
+  async validatePowerSupply(expectedPowerSupplies: readonly string[]) {
     const dropdown = this.inputPowerSupply.locator("option");
-    await expect(dropdown).toHaveText(expectedRefrigerent);
+    await expect(dropdown).toHaveText(expectedPowerSupplies);
   }
 
-  async validateModels(expectetModels: string[]) {
+  async validateModels(expectetModels: readonly string[]) {
     const dropdown = this.inputModels.locator("option");
     await expect(dropdown).toHaveText(expectetModels);
   }

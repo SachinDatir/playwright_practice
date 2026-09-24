@@ -1,6 +1,6 @@
 import { expect, Page, test } from "@playwright/test";
-import { TestingPlayground } from "../support/pages/testingPlayground";
-import { submitAndWaitForResponse } from "../support/wait-until";
+import { TestingPlayground } from "../support/pages/TestingPlaygroundPage";
+import { submitAndWaitForResponse } from "../support/utils/wait-until";
 test.describe("Verify the the playground", () => {
   let testingUtils: TestingPlayground;
   test.beforeEach(async ({ page }) => {

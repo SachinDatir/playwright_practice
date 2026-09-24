@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 import { LoginPage } from "../pages/oneSelect/LoginPage";
-import { waitForApi } from "../wait-until";
+import { waitForApi } from "../utils/wait-until";
 import { type Response, type Page } from "@playwright/test";
 
 const dashboardCalculationApis = [

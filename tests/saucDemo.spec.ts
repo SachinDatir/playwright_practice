@@ -1,5 +1,5 @@
 import { test, expect } from "../support/fixtures/testFixtures";
-import { SauceDemo } from "../support/pages/sauceDemo";
+import { SauceDemo } from "../support/pages/SauceDemoPage";
 
 const url: string = process.env.SAUCE_DEMO_URL;
 const username: string = "standard_user";

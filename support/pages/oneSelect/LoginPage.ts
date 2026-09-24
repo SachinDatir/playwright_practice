@@ -1,5 +1,5 @@
 import { expect, type Page } from "@playwright/test";
-import { submitAndWaitForResponse } from "../../wait-until";
+import { submitAndWaitForResponse } from "../../utils/wait-until";
 import { LoginComponent } from "../../components/onsComponent/LoginForm";
 type OAuthProvider = "NATIVE" | string;
 

@@ -1,4 +1,4 @@
-import { HerokuApp } from "./herokuApp";
+import { HerokuApp } from "./HerokuAppPage";
 import { type Locator, type Page } from "@playwright/test";
 
 export class TestingPlayground {

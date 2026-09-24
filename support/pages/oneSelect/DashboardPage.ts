@@ -1,22 +1,23 @@
 import { type Page, expect } from "@playwright/test";
 import { ProductSelection } from "../../components/onsComponent/ProductSelection";
+import { waitForApi } from "../../utils/wait-until";
 type CyberAirProductOptions = {
   productLineName: string;
   dischargeType: string;
   coolingSystem: string;
-  refrigerantType: string;
+  refrigerantType?: string;
   modelName: string;
 };
 export class DashboardPage {
   readonly productSelection: ProductSelection;
 
-  constructor(page: Page) {
+  constructor(readonly page: Page) {
     this.productSelection = new ProductSelection(page);
   }
 
   async cyberAirProductLine(options: CyberAirProductOptions) {
     await this.productSelection.openRoomCooling();
-
+    const listFilterModels = waitForApi(this.page, "listFilteredModels");
     const productLine = this.productSelection.deuProductLine;
 
     await productLine
@@ -25,22 +26,36 @@ export class DashboardPage {
         exact: true,
       })
       .click();
-
+    await listFilterModels;
     await this.productSelection.selectDischargeType(options.dischargeType);
+    await this.page.waitForTimeout(500);
     await this.productSelection.selectCoolingSystem(options.coolingSystem);
-    await this.productSelection.selectRefrigerantType(options.refrigerantType);
+    if (options.refrigerantType) {
+      await this.productSelection.selectRefrigerantType(
+        options.refrigerantType,
+      );
+    }
+
     await this.productSelection.selectModel(options.modelName);
   }
 
-  async validateCyberAirACompType() {
+  async validateCyberAirACompType(expectedCompType: readonly string[]) {
     const compressorTypes = this.productSelection.compressorType.locator("h5");
-    await expect(compressorTypes.nth(0)).toContainText("On/Off Scroll");
-
-    await expect(compressorTypes.nth(1)).toContainText("EC Scroll");
-    await expect(compressorTypes.nth(2)).toContainText("Digital Scroll");
+    await expect(compressorTypes).toHaveText(expectedCompType);
   }
 
-  async validateCyberAirRefrigerantTypes(expectedRefrigerants: string[]) {
+  async validateCoolingSystem(expectedCoolingSystem: readonly string[]) {
+    const coolingSystems = this.productSelection.systemCooling.locator("h5");
+    await expect(coolingSystems).toContainText(expectedCoolingSystem);
+  }
+
+  async validateDischargeType(expectedDischargeType: readonly string[]) {
+    const disChargeType = this.productSelection.dischargeType.locator("h5");
+    await expect(disChargeType).toHaveText(expectedDischargeType);
+  }
+  async validateCyberAirRefrigerantTypes(
+    expectedRefrigerants: readonly string[],
+  ) {
     const refrigerants = this.productSelection.refrigerantType.locator("h5");
     await expect(refrigerants).toHaveText(expectedRefrigerants);
   }

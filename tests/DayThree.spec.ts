@@ -10,8 +10,8 @@
 // toHaveTitle()
 
 import { test, expect } from "@playwright/test";
-import { HerokuApp } from "../support/pages/herokuApp";
-import { TestingArena } from "../support/pages/testingArena";
+import { HerokuApp } from "../support/pages/HerokuAppPage";
+import { TestingArena } from "../support/pages/TestingArenaPage";
 const url = process.env.HEROKUAPP_URL;
 let herokuUtils: HerokuApp;
 let testingArena: TestingArena;

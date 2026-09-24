@@ -20,6 +20,8 @@ export class ProductSelection {
   readonly espProductLine: Locator;
   readonly usaProductLine: Locator;
   readonly refrigerantType: Locator;
+  readonly powerSupply: Locator;
+  readonly models: Locator;
 
   constructor(private readonly page: Page) {
     this.roomCoolingCard = page.getByRole("heading", { name: "Room Cooling" });
@@ -59,8 +61,42 @@ export class ProductSelection {
     this.espProductLine = page.locator("#ESP");
     this.usaProductLine = page.locator("#USA");
     this.refrigerantType = page.locator("#refrigerant");
+    this.powerSupply = page.locator("#powerSupply");
+    this.models = page.locator("#models");
   }
 
+  getRefrigerant(refrigerantType: string) {
+    return this.page.getByRole("heading", {
+      name: refrigerantType,
+      exact: true,
+    });
+  }
+
+  modelCard(modelName: string) {
+    return this.page.getByRole("heading", { name: modelName, exact: true });
+  }
+
+  getPowerSupply(powerSupply: string) {
+    return this.page.getByRole("heading", {
+      name: powerSupply,
+      exact: true,
+    });
+  }
+
+  getDischargeType(dischargeType: string) {
+    return this.dischargeType.locator(
+      this.page.getByRole("heading", { name: dischargeType, exact: true }),
+    );
+  }
+
+  getCompressorType(compressorType: string) {
+    return this.compressorType.getByRole("heading", {
+      name: compressorType,
+      exact: true,
+    });
+  }
+
+  //async methods
   async openRoomCooling() {
     await expect(this.roomCoolingCard).toBeVisible({ timeout: 50000 });
     await this.roomCoolingCard.click();
@@ -94,9 +130,7 @@ export class ProductSelection {
   }
 
   async selectDischargeType(dischargeType: string) {
-    await this.dischargeType
-      .locator(this.page.getByRole("heading", { name: dischargeType, exact: true }))
-      .click();
+    this.getDischargeType(dischargeType).click();
   }
 
   async selectCoolingSystem(systemName: string) {
@@ -106,65 +140,55 @@ export class ProductSelection {
   }
 
   async selectCompressorType(compressorType: string) {
-    const compressor = this.compressorType.getByRole("heading", {
-      name: compressorType,
-      exact: true,
-    });
+    const compressor = this.getCompressorType(compressorType);
     await compressor.scrollIntoViewIfNeeded();
     await compressor.click({ force: true });
   }
 
-  async selectCoolingType(coolingType: string) {
-    const cooling = this.page.getByRole("heading", {
+  getCoolingSystemType(coolingType: string) {
+    return this.page.getByRole("heading", {
       name: coolingType,
       exact: true,
     });
-    await cooling.scrollIntoViewIfNeeded();
-    await cooling.click({ force: true });
   }
 
-  async selectCasingSize(casingSize: string) {
-    const caseSize = this.page.getByRole("heading", {
+  getCasingSize(casingSize: string) {
+    return this.page.getByRole("heading", {
       name: casingSize,
       exact: true,
     });
-    await caseSize.click({ force: true });
   }
-
-  modelCard(modelName: string) {
-    return this.page.getByRole("heading", { name: modelName, exact: true });
+  async selectCasingSize(casingSize: string) {
+    const caseSize = this.getCasingSize(casingSize);
+    await caseSize.click({ force: true });
   }
 
   async selectModel(modelName: string) {
     const model = this.modelCard(modelName);
-    // await model.scrollIntoViewIfNeeded();
+    await model.scrollIntoViewIfNeeded();
     await expect(model).toBeVisible();
     await model.click();
   }
 
-  async selectNoiseData(noiseData: string) {
-    const noise = this.page.getByRole("heading", {
+  getNoiseData(noiseData: string) {
+    return this.page.getByRole("heading", {
       name: noiseData,
       exact: true,
     });
+  }
+  async selectNoiseData(noiseData: string) {
+    const noise = this.getNoiseData(noiseData);
     await noise.scrollIntoViewIfNeeded();
     await noise.click({ force: true });
   }
 
   async selectRefrigerantType(refrigerantType: string) {
-    const refrigerant = this.page.getByRole("heading", {
-      name: refrigerantType,
-      exact: true,
-    });
-    // await refrigerant.scrollIntoViewIfNeeded();
+    const refrigerant = this.getRefrigerant(refrigerantType);
     await refrigerant.click({ force: true });
   }
 
   async selectPowerSupply(powerSupply: string) {
-    const powerSupplyOption = this.page.getByRole("heading", {
-      name: powerSupply,
-      exact: true,
-    });
+    const powerSupplyOption = this.getPowerSupply(powerSupply);
     await expect(powerSupplyOption).toBeVisible();
     await powerSupplyOption.click({ force: true });
   }

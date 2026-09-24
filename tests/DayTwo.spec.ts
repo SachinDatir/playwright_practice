@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { HerokuApp } from "../support/pages/herokuApp";
+import { HerokuApp } from "../support/pages/HerokuAppPage";
 // filter()
 // hasText
 // has
