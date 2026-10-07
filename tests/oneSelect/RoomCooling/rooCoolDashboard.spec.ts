@@ -139,4 +139,16 @@ test.describe("Validate the dashboard page", () => {
       expect(resp).toBeDefined();
     });
   });
+
+  test.only("Verify the CHN selection board", async ({page}) => {
+    await dashboardPage.productSelection.openRoomCooling();
+    await dashboardPage.productSelection.selectProductLine(
+      dashboardPage.productSelection.chnProductLine,
+      dashboardPage.productSelection.cyberAirCard,
+    );
+
+    await dashboardPage.validateDischargeType(roomCoolingData.dischargeType)
+    await dashboardPage.validateCoolingSystem(roomCoolingData.coolingSystemType)
+    await page.pause()
+  });
 });
