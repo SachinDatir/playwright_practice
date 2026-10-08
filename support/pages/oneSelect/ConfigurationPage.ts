@@ -49,4 +49,12 @@ export class ConfigurationPage {
   async waitForCalculationApis( apis: string[]) {
     return Promise.all(apis.map((api) => waitForApi(this.page, api)));
   }
+
+  async enterPreProdMode (){
+    await this.page.getByTitle('Enter Pre-Production Mode').click();
+  }
+
+    async exitPreProdMode (){
+    await this.page.getByTitle('Exit Pre-Production Mode').click();
+  }
 }

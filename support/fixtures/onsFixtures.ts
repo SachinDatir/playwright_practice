@@ -2,6 +2,8 @@ import { test as base } from "@playwright/test";
 import { LoginPage } from "../pages/oneSelect/LoginPage";
 import { waitForApi } from "../utils/wait-until";
 import { type Response, type Page } from "@playwright/test";
+import { ConfigurationPage } from "../pages/oneSelect/ConfigurationPage";
+import { DashboardPage } from "../pages/oneSelect/DashboardPage";
 
 const dashboardCalculationApis = [
   "condenserList",
@@ -18,6 +20,8 @@ type Fixtures = {
     page: Page,
     urlPart: string,
   ) => Promise<Response>;
+  dashboardPage: DashboardPage;
+  configurationPage: ConfigurationPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -55,6 +59,16 @@ export const test = base.extend<Fixtures>({
     };
 
     await use(helperFn);
+  },
+
+  dashboardPage: async ({ page }, use) => {
+    const dashboardPage = new DashboardPage(page);
+    await use(dashboardPage);
+  },
+
+  configurationPage: async ({ page }, use) => {
+    const configurationPage = new ConfigurationPage(page);
+    await use(configurationPage);
   },
 });
 export { expect } from "@playwright/test";

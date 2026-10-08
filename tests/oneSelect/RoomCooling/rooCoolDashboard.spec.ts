@@ -149,6 +149,5 @@ test.describe("Validate the dashboard page", () => {
 
     await dashboardPage.validateDischargeType(roomCoolingData.dischargeType)
     await dashboardPage.validateCoolingSystem(roomCoolingData.coolingSystemType)
-    await page.pause()
   });
 });
