@@ -11,7 +11,18 @@ export const roomCoolingData = {
 
   circuitType: ["All", "1", "2"] as const,
 
-  casingSize: ["All", "950", "1,400", "1,750", "2,200", "2,550"] as const, 
+  casingSize: ["All", "950", "1,400", "1,750", "2,200", "2,550"] as const,
 
   refrigerantType: ["R407C", "R410A", "R134a", "R513A"] as const,
+};
+
+export const highDensityData = {
+  deuProductLine: [
+    "CyberRow",
+    "CyberRack Active Rear Door",
+    "CyberRack Sidecooler",
+  ] as const,
+  chnProductLine: ["CyberRow", "CyberRack"] as const,
+  usaProductLine: ["CyberRow"] as const,
+  refrigerent:["R410A","R134a"]
 };

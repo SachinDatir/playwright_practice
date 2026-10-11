@@ -1,5 +1,5 @@
 import { type Page, type Locator } from "@playwright/test";
-
+import { HerokuComp } from "../components/herokkuComponent/menuComponent";
 export class HerokuApp {
   private readonly page: Page;
   readonly content: Locator;
@@ -7,7 +7,9 @@ export class HerokuApp {
   readonly checkbox_one: Locator;
   readonly inputs: Locator;
   readonly heading: Locator;
-  readonly addRemoveElement :Locator
+  readonly addRemoveElement: Locator;
+  readonly herokuComp : HerokuComp;
+
   constructor(page: Page) {
     this.page = page;
     this.content = page.locator("#content");
@@ -20,6 +22,10 @@ export class HerokuApp {
     this.addRemoveElement = page.getByRole("link", {
       name: "Add/Remove Elements",
     });
+
+    this.herokuComp = new HerokuComp(page)
+    
+    
   }
   async selectTab(tabName: string) {
     await this.page.getByRole("link", { name: tabName }).click();
@@ -28,6 +34,6 @@ export class HerokuApp {
   async navigateTo(url: string) {
     await this.page.goto(url);
   }
+
+
 }
-
-

@@ -123,7 +123,6 @@ test.describe("Validate the dashboard page", () => {
     await dashboardPage.validateCoolingSystem(
       roomCoolingData.cyberAirMiniCoolingSystemType,
     );
-    await page.pause();
     const apis =
       coolingSystem === "CW" ? calculationApis.CW : calculationApis.A;
     const responses = configurationPage.waitForCalculationApis(apis);
@@ -140,14 +139,16 @@ test.describe("Validate the dashboard page", () => {
     });
   });
 
-  test.only("Verify the CHN selection board", async ({page}) => {
+  test("Verify the CHN selection board", async ({ page }) => {
     await dashboardPage.productSelection.openRoomCooling();
     await dashboardPage.productSelection.selectProductLine(
       dashboardPage.productSelection.chnProductLine,
       dashboardPage.productSelection.cyberAirCard,
     );
 
-    await dashboardPage.validateDischargeType(roomCoolingData.dischargeType)
-    await dashboardPage.validateCoolingSystem(roomCoolingData.coolingSystemType)
+    await dashboardPage.validateDischargeType(roomCoolingData.dischargeType);
+    await dashboardPage.validateCoolingSystem(
+      roomCoolingData.coolingSystemType,
+    );
   });
 });
