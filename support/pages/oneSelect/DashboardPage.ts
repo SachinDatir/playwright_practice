@@ -3,7 +3,7 @@ import { ProductSelection } from "../../components/onsComponent/ProductSelection
 import { waitForApi } from "../../utils/wait-until";
 type CyberAirProductOptions = {
   productLineName: string;
-  dischargeType: string;
+  dischargeType?: string;
   coolingSystem: string;
   refrigerantType?: string;
   modelName: string;
@@ -27,7 +27,35 @@ export class DashboardPage {
       })
       .click();
     await listFilterModels;
-    await this.productSelection.selectDischargeType(options.dischargeType);
+    if (options.dischargeType) {
+      await this.productSelection.selectDischargeType(options.dischargeType);
+    }
+    await this.page.waitForTimeout(500);
+    await this.productSelection.selectCoolingSystem(options.coolingSystem);
+    if (options.refrigerantType) {
+      await this.productSelection.selectRefrigerantType(
+        options.refrigerantType,
+      );
+    }
+
+    await this.productSelection.selectModel(options.modelName);
+  }
+
+  async selectHighDensityCooling(options: CyberAirProductOptions) {
+    await this.productSelection.openHighDenityCooling();
+    const listFilterModels = waitForApi(this.page, "listFilteredModels");
+    const productLine = this.productSelection.deuProductLine;
+
+    await productLine
+      .getByRole("heading", {
+        name: options.productLineName,
+        exact: true,
+      })
+      .click();
+    await listFilterModels;
+    if (options.dischargeType) {
+      await this.productSelection.selectDischargeType(options.dischargeType);
+    }
     await this.page.waitForTimeout(500);
     await this.productSelection.selectCoolingSystem(options.coolingSystem);
     if (options.refrigerantType) {

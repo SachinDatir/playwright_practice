@@ -14,7 +14,7 @@ export class ProductSelection {
   readonly systemCooling: Locator;
   readonly compressorType: Locator;
   readonly cyberAirCard: Locator;
-  readonly cyberRowCard:Locator
+  readonly cyberRowCard: Locator;
   readonly cciIndoor: Locator;
   readonly cc2Card: Locator;
   readonly cyberLabCard: Locator;
@@ -24,12 +24,14 @@ export class ProductSelection {
   readonly refrigerantType: Locator;
   readonly powerSupply: Locator;
   readonly models: Locator;
-  readonly highDesityCard:Locator
+  readonly highDesityCard: Locator;
 
   constructor(private readonly page: Page) {
     this.roomCoolingCard = page.getByRole("heading", { name: "Room Cooling" });
-    this.highDesityCard = page.getByRole("heading",{name:"High Density Cooling"})
-    this.cyberRowCard = page.getByRole("heading",{name:"CyberRow"})
+    this.highDesityCard = page.getByRole("heading", {
+      name: "High Density Cooling", exact:true
+    });
+    this.cyberRowCard = page.getByRole("heading", { name: "CyberRow" });
     this.chillerCard = page.locator(
       '[src="assets/img/app/app/chiller_units.png"]',
     );
@@ -107,9 +109,9 @@ export class ProductSelection {
     await this.roomCoolingCard.click();
   }
 
-  async openHighDenityCooling(){
-    await expect(this.highDesityCard).toBeVisible({ timeout: 50000 })
-    await this.highDesityCard.click()
+  async openHighDenityCooling() {
+    await expect(this.highDesityCard).toBeVisible({ timeout: 50000 });
+    await this.highDesityCard.click();
   }
 
   async openChiller() {
@@ -203,18 +205,18 @@ export class ProductSelection {
     await powerSupplyOption.click({ force: true });
   }
 
-  async validateDeuProductLine(expectedProductLine :readonly string[]){
-    const productLine =  this.deuProductLine.locator('h5')
-    await expect(productLine).toHaveText(expectedProductLine)
+  async validateDeuProductLine(expectedProductLine: readonly string[]) {
+    const productLine = this.deuProductLine.locator("h5");
+    await expect(productLine).toHaveText(expectedProductLine);
   }
 
-   async validateChnProductLine(expectedProductLine : readonly string[]){
-    const productLine =  this.chnProductLine.locator('h5')
-    await expect(productLine).toHaveText(expectedProductLine)
+  async validateChnProductLine(expectedProductLine: readonly string[]) {
+    const productLine = this.chnProductLine.locator("h5");
+    await expect(productLine).toHaveText(expectedProductLine);
   }
 
-   async validateUsaProductLine(expectedProductLine : readonly string[]){
-    const productLine =  this.usaProductLine.locator('h5')
-    await expect(productLine).toHaveText(expectedProductLine)
+  async validateUsaProductLine(expectedProductLine: readonly string[]) {
+    const productLine = this.usaProductLine.locator("h5");
+    await expect(productLine).toHaveText(expectedProductLine);
   }
 }

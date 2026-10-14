@@ -1,6 +1,6 @@
 import { test, expect } from "../../../support/fixtures/onsFixtures";
-import { DashboardPage } from "../../../support/pages/oneSelect/DashboardPage";
-import { ConfigurationPage } from "../../../support/pages/oneSelect/ConfigurationPage";
+import { InputPage } from "../../../support/pages/oneSelect/InputPage";
+
 import { waitForApi } from "../../../support/utils/wait-until";
 import {
   highDensityData,
@@ -11,7 +11,9 @@ const email = process.env.ONS_EMAIL;
 const password = process.env.ONS_PASSWORD;
 
 test.describe("Validate the dashboard page", () => {
+  let inputPage: InputPage;
   test.beforeEach(async ({ loginPage, page, dashboardPage }) => {
+    inputPage = new InputPage(page);
     await loginPage.loginAndValidate(email, password);
     await loginPage.expectAppOpened();
     await page.waitForLoadState("domcontentloaded");
@@ -56,5 +58,47 @@ test.describe("Validate the dashboard page", () => {
     await dashboardPage.validateCyberAirRefrigerantTypes(
       highDensityData.refrigerent,
     );
+  });
+
+  test.only("Validate the print functionality of HDC", async ({
+    dashboardPage,
+    configurationPage,
+    clickAndWaitForResponse,
+    cyberAirCalculationResponses,
+    page,
+  }) => {
+    const coolingSystem = "A";
+
+    await dashboardPage.selectHighDensityCooling({
+      productLineName: "CyberRow",
+      coolingSystem: "A",
+      refrigerantType: "R134a",
+      modelName: " CRS 101 A  ",
+    });
+
+    await clickAndWaitForResponse(
+      () => dashboardPage.productSelection.proceed(),
+      page,
+      "performAllCalculations",
+    );
+
+    const apis = [
+      "thestEvaporatorExpertCalculation",
+      "compressorExpertCalculation",
+    ];
+
+    const responses = configurationPage.waitForCalculationApis(apis);
+
+    await responses.then(async (res) => {
+      const resp = await Promise.all(res.map((el) => el.body()));
+      expect(resp).toBeDefined();
+    });
+
+    await inputPage.expertTab.openPreviewPdf();
+    await expect(inputPage.expertTab.downloadButton).toBeVisible()
+    await inputPage.expertTab.downloadButton.click()
+
+    await page.pause();
+
   });
 });
