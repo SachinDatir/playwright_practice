@@ -78,5 +78,6 @@ export class LoginPage {
 
     expect(loginResponseBody.message).toBe("Login Success");
     expect(loginResponseBody.data?.token).toBeTruthy();
+    return loginResponseBody.data?.token
   }
 }
