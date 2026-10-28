@@ -6,5 +6,8 @@ declare namespace NodeJS {
     HEROKUAPP_URL: string;
     ONS_EMAIL: string;
     ONS_PASSWORD: string;
+    HRMS_URL:string
+    EMPLOYEE_CODE:string
+    EMPLOYEE_PASSWORD:string
   }
 }
