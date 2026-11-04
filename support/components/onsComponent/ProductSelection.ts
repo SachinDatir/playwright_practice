@@ -1,5 +1,4 @@
 import { expect, type Locator, type Page } from "@playwright/test";
-import { expectFailure } from "node:test";
 
 export class ProductSelection {
   readonly roomCoolingCard: Locator;
@@ -25,11 +24,13 @@ export class ProductSelection {
   readonly powerSupply: Locator;
   readonly models: Locator;
   readonly highDesityCard: Locator;
-
+  readonly shelterCooling: Locator;
+  readonly wallAir: Locator;
   constructor(private readonly page: Page) {
     this.roomCoolingCard = page.getByRole("heading", { name: "Room Cooling" });
     this.highDesityCard = page.getByRole("heading", {
-      name: "High Density Cooling", exact:true
+      name: "High Density Cooling",
+      exact: true,
     });
     this.cyberRowCard = page.getByRole("heading", { name: "CyberRow" });
     this.chillerCard = page.locator(
@@ -70,6 +71,12 @@ export class ProductSelection {
     this.refrigerantType = page.locator("#refrigerant");
     this.powerSupply = page.locator("#powerSupply");
     this.models = page.locator("#models");
+    this.shelterCooling = page.getByRole("heading", {
+      name: "Shelter Cooling",
+      exact: true,
+    });
+
+    this.wallAir = page.getByRole("heading", { name: "WallAir", exact: true });
   }
 
   getRefrigerant(refrigerantType: string) {
@@ -155,6 +162,10 @@ export class ProductSelection {
     const compressor = this.getCompressorType(compressorType);
     await compressor.scrollIntoViewIfNeeded();
     await compressor.click({ force: true });
+  }
+
+  async openShelterCooling() {
+    await expect(this.shelterCooling).toBeVisible();
   }
 
   getCoolingSystemType(coolingType: string) {

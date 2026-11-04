@@ -24,5 +24,9 @@ export const highDensityData = {
   ] as const,
   chnProductLine: ["CyberRow", "CyberRack"] as const,
   usaProductLine: ["CyberRow"] as const,
-  refrigerent:["R410A","R134a"]
+  refrigerent: ["R410A", "R134a"],
+};
+
+export const shelterCoolingData = {
+  deuProductLine: ["WallAir"],
 };

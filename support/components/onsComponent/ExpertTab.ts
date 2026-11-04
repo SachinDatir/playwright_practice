@@ -16,7 +16,7 @@ export class ExpertTab {
     //   res.url().includes('"printDoc"'),
     // );
     await this.printButton.click();
-   await expect.soft(this.page.frameLocator("#previewFrame").locator('[type="application/pdf"]')).toBeVisible({ timeout: 30_000 });
+   await expect.soft(this.page.frameLocator("#previewFrame").first().locator('[type="application/pdf"]')).toBeVisible({ timeout: 30_000 });
 
     // expect(responsePromise).toBeDefined();
   }

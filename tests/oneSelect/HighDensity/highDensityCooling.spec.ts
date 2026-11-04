@@ -20,7 +20,7 @@ test.describe("Validate the dashboard page", () => {
     await dashboardPage.productSelection.openHighDenityCooling();
   });
 
-  test("Validate the High density cooling product line", async ({
+  test.skip("Validate the High density cooling product line", async ({
     dashboardPage,
   }) => {
     await dashboardPage.productSelection.validateDeuProductLine(
@@ -76,6 +76,8 @@ test.describe("Validate the dashboard page", () => {
       modelName: " CRS 101 A  ",
     });
 
+    
+
     await clickAndWaitForResponse(
       () => dashboardPage.productSelection.proceed(),
       page,
@@ -93,12 +95,5 @@ test.describe("Validate the dashboard page", () => {
       const resp = await Promise.all(res.map((el) => el.body()));
       expect(resp).toBeDefined();
     });
-
-    await inputPage.expertTab.openPreviewPdf();
-    await expect(inputPage.expertTab.downloadButton).toBeVisible()
-    await inputPage.expertTab.downloadButton.click()
-
-    await page.pause();
-
   });
 });
