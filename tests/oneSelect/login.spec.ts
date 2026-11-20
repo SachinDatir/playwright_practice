@@ -1,10 +1,20 @@
 import { test, expect } from "../../support/fixtures/onsFixtures";
-const email = "datirsachin61@gmail.com";
-const password = "Sachin@123!";
-const wrongPass = "Sachin123";
+
+function requiredCredential(name: "ONS_EMAIL" | "ONS_PASSWORD"): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
 test.describe("Validate the login functionality of oneselect", () => {
   test("Verify the login with valid user", async ({ loginPage, page }) => {
-    await loginPage.loginAndValidate(email, password);
+console.log(requiredCredential("ONS_EMAIL"))
+
+    await loginPage.loginAndValidate(
+      requiredCredential("ONS_EMAIL"),
+      requiredCredential("ONS_PASSWORD"),
+    );
     await loginPage.expectAppOpened();
   });
 
@@ -12,7 +22,10 @@ test.describe("Validate the login functionality of oneselect", () => {
     let thrownError: Error | null = null;
 
     try {
-      await loginPage.loginAndValidate(email, wrongPass);
+      await loginPage.loginAndValidate(
+        requiredCredential("ONS_EMAIL"),
+        "invalid-test-password",
+      );
     } catch (error) {
       thrownError = error as Error;
     }

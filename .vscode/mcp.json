@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "/home/sachin/.nvm/versions/node/v24.22.0/bin/npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--caps=testing,network,storage,devtools"
+      ],
+      "env": {
+        "PATH": "/home/sachin/.nvm/versions/node/v24.22.0/bin:/usr/local/bin:/usr/bin:/bin"
+      }
+    }
+  }
+}

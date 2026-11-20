@@ -75,7 +75,10 @@ export default defineConfig({
 // ],
 
 projects:[
-  {}
+  {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
 ]
   /* Run your local dev server before starting the tests */
   // webServer: {
