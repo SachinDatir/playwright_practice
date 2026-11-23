@@ -9,5 +9,6 @@ declare namespace NodeJS {
     HRMS_URL:string
     EMPLOYEE_CODE:string
     EMPLOYEE_PASSWORD:string
+    BACKEND_LOGIN_URL:string
   }
 }
